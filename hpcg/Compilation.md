@@ -1,6 +1,9 @@
 
 # HPCG Compilation Guide
 
+Difficulty: Easy
+---
+
 This guide provides step-by-step instructions for compiling the High Performance Conjugate Gradient Benchmark (HPCG) version 3.1, based on the provided installation script. It covers cloning or downloading the source code, configuring the build environment, building the executable, and testing the installation.
 
 ## Prerequisites
@@ -61,10 +64,10 @@ HPCG supports three configuration methods: Make-based, CMake-based, and Autoconf
         
         ```bash
         cd setup
-        cp Make.MPI_GCC Make.Linux
+        cp Make.MPIICPC_OMP Make.Linux # that means choose  ICPC compiler with MPI support version of HPCG
         ```
         
-    - Edit `Make.Linux` to specify the following variables:
+    - Edit `Make.Linux` to specify the following variables. (If you use Make.GCC_OMP, you can skip the step)
         
         - `MPdir`: Path to the MPI installation (e.g., `/usr/lib64/openmpi`).
         - `MPinc`: Path to MPI header files (e.g., `-I$(MPdir)/include`).
@@ -103,16 +106,7 @@ HPCG supports three configuration methods: Make-based, CMake-based, and Autoconf
 
 ## Step 3: Build
 
-1. **In-Source Build**:
-    
-    - From the top-level directory, run:
-        
-        ```bash
-        make setup/Make.Linux
-        ```
-        
-    - This creates the executable `bin/xhpcg`.
-2. **Out-of-Source Build**:
+1. **Out-of-Source Build (Recommended)**:
     
     - From the `build` directory, run:
         
@@ -122,6 +116,18 @@ HPCG supports three configuration methods: Make-based, CMake-based, and Autoconf
         
     - This creates the executable `bin/xhpcg` in the `build` directory.
 
+
+        
+    - This creates the executable `bin/xhpcg`.
+
+2. **In-Source Build**:
+    
+    - From the top-level directory, run:
+        
+        ```bash
+        make setup/Make.Linux
+        ```
+
 ## Step 4: Test
 
 1. Navigate to the `bin` directory:
@@ -130,7 +136,7 @@ HPCG supports three configuration methods: Make-based, CMake-based, and Autoconf
     cd bin
     ```
     
-2. Run a quick test with the default `hpcg.dat` file using 8 MPI processes:
+2. Run a quick test with the default `hpcg.dat` file using 8 MPI processes (if you use OMP, just `./xhpcg` is ok):
     
     ```bash
     mpirun -np 8 ./xhpcg
