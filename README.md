@@ -4,6 +4,8 @@ Haibin Lai
 
 12211612@mail.sustech.edu.cn
 
+![alt text](Roadmap.png)
+
 
 ## 1. Foundations of HPC
 
